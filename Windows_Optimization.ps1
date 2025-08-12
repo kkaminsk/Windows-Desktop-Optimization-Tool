@@ -79,6 +79,13 @@ Param (
 
 BEGIN 
 {
+    # Load all functions for later use
+    $WDOTFunctions = Get-ChildItem "$PSScriptRoot\Functions\*-WDOT.ps1" | Select-Object -ExpandProperty FullName
+    $WDOTFunctions | ForEach-Object {
+        Write-Verbose "Loading function $_"
+        . $_
+    }
+
     [Version]$WDOTVersion = "1.0.0.0" 
     # Create Key
     $KeyPath = 'HKLM:\SOFTWARE\WDOT'
@@ -140,4 +147,46 @@ BEGIN
         Write-Warning $Message
         Return
     }
-}
+} # End Begin
+
+PROCESS {
+    if (-not ($PSBoundParameters.Keys -match 'Optimizations') )
+    {
+        Write-EventLog -Message "No Optimizations (Optimizations or AdvancedOptimizations) passed, exiting script!" -Source 'WDOT' -EventID 100 -EntryType Error -LogName 'WDOT'
+        $Message = "`nThe Optimizations parameter no longer defaults to 'All', you must explicitly pass in this parameter.`nThis is to allow for running 'AdvancedOptimizations' separately " 
+        Write-Host " * " -ForegroundColor black -BackgroundColor yellow -NoNewline
+        Write-Host " Important " -ForegroundColor Yellow -BackgroundColor Red -NoNewline
+        Write-Host " * " -ForegroundColor black -BackgroundColor yellow -NoNewline
+        Write-Host $Message -ForegroundColor yellow -BackgroundColor black
+        Return
+    }
+    $EULA = Get-Content (Join-Path $PSScriptRoot "EULA.txt")
+    if (-not $AcceptEULA) {
+        $Title = "Accept EULA"
+        $Options = @(
+            New-Object System.Management.Automation.Host.ChoiceDescription "&Yes"
+            New-Object System.Management.Automation.Host.ChoiceDescription "&No"
+        )
+        $Response = $host.UI.PromptForChoice($Title, $EULA, $Options, 0)
+        if ($Response -eq 0) {
+            Write-EventLog -LogName 'WDOT' -Source 'WDOT' -EntryType Information -EventId 1 -Message "EULA Accepted"
+        } else {
+            Write-EventLog -LogName 'WDOT' -Source 'WDOT' -EntryType Warning -EventId 1 -Message "EULA Declined, exiting!"
+            Set-Location $CurrentLocation
+            $ScriptRunTime = (New-TimeSpan -Start $StartTime -End (Get-Date))
+            Write-EventLog -LogName 'WDOT' -Source 'WDOT' -EntryType Information -EventId 1 -Message "WDOT Total Run Time: $($ScriptRunTime.Hours) Hours $($ScriptRunTime.Minutes) Minutes $($ScriptRunTime.Seconds) Seconds"
+            Write-Host "`n`nThank you from the Windows Desktop Optimization Team" -ForegroundColor Cyan
+            continue
+        }
+    } else {
+        Write-EventLog -LogName 'WDOT' -Source 'WDOT' -EntryType Information -EventId 1 -Message "EULA Accepted by Parameter"
+    }
+
+    #region Disable, then remove, Windows Media Player including payload
+    If ($Optimizations -contains "WindowsMediaPlayer" -or $Optimizations -contains "All")
+    {
+        Remove-WDOTWindowsMediaPlayer
+    }
+    #endregion
+
+} # End process
