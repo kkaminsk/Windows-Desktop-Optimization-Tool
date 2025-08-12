@@ -80,7 +80,7 @@ Param (
 BEGIN 
 {
     # Load all functions for later use
-    $WDOTFunctions = Get-ChildItem "$PSScriptRoot\Functions\*-WDOT.ps1" | Select-Object -ExpandProperty FullName
+    $WDOTFunctions = Get-ChildItem "$PSScriptRoot\Functions\*-WDOT*.ps1" | Select-Object -ExpandProperty FullName
     $WDOTFunctions | ForEach-Object {
         Write-Verbose "Loading function $_"
         . $_

@@ -1,4 +1,4 @@
-﻿Function Remove-VDOTAppxPackages
+﻿Function Remove-WDOTAppxPackages
 {
     [CmdletBinding()]
     Param
