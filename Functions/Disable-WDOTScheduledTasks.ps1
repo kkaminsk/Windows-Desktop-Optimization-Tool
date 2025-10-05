@@ -18,7 +18,7 @@
         {
             Write-EventLog -EventId 30 -Message "[Windows Optimize] Disable Scheduled Tasks" -LogName 'WDOT' -Source 'ScheduledTasks' -EntryType Information 
             Write-Host "[Windows Optimize] Disable Scheduled Tasks" -ForegroundColor Cyan
-            $SchTasksList = (Get-Content $ScheduledTasksFilePath | ConvertFrom-Json).Where( { $_.VDIState -eq 'Disabled' })
+            $SchTasksList = (Get-Content $ScheduledTasksFilePath | ConvertFrom-Json).Where( { $_.OptimizationState -eq 'Apply' })
             If ($SchTasksList.count -gt 0)
             {
                 Foreach ($Item in $SchTasksList)

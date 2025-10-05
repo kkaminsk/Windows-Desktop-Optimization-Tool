@@ -18,7 +18,7 @@
         {
             Write-EventLog -EventId 40 -Message "Set Default User Settings" -LogName 'WDOT' -Source 'WDOT' -EntryType Information
             Write-Host "[Windows Optimize] Set Default User Settings" -ForegroundColor Cyan
-            $UserSettings = (Get-Content $DefaultUserSettingsFilePath | ConvertFrom-Json).Where( { $_.SetProperty -eq $true })
+            $UserSettings = (Get-Content $DefaultUserSettingsFilePath | ConvertFrom-Json).Where( { $_.OptimizationState -eq "Apply" })
             If ($UserSettings.Count -gt 0)
             {
                 Write-EventLog -EventId 40 -Message "Processing Default User Settings (Registry Keys)" -LogName 'WDOT' -Source 'DefaultUserSettings' -EntryType Information

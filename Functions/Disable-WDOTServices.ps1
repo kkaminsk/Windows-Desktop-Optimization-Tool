@@ -18,7 +18,7 @@
         {
             Write-EventLog -EventId 60 -Message "Disable Services" -LogName 'WDOT' -Source 'Services' -EntryType Information
             Write-Host "[VDI Optimize] Disable Services" -ForegroundColor Cyan
-            $ServicesToDisable = (Get-Content $ServicesFilePath | ConvertFrom-Json ).Where( { $_.VDIState -eq 'Disabled' })
+            $ServicesToDisable = (Get-Content $ServicesFilePath | ConvertFrom-Json ).Where( { $_.OptimizationState -eq 'Apply' })
 
             If ($ServicesToDisable.count -gt 0)
             {

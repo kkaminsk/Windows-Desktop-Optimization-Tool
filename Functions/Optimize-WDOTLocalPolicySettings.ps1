@@ -25,7 +25,7 @@ function Optimize-WDOTLocalPolicySettings
                 Write-Verbose "Processing PolicyRegSettings Settings ($($PolicyRegSettings.Count) Hives)"
                 Foreach ($Key in $PolicyRegSettings)
                 {
-                    If ($Key.VDIState -eq 'Enabled')
+                    If ($Key.OptimizationState -eq 'Apply')
                     {
                         If (Get-ItemProperty -Path $Key.RegItemPath -Name $Key.RegItemValueName -ErrorAction SilentlyContinue) 
                         { 

@@ -18,7 +18,7 @@
         {
             Write-EventLog -EventId 50 -Message "Disable AutoLoggers" -LogName 'WDOT' -Source 'AutoLoggers' -EntryType Information
             Write-Host "[Windows Optimize] Disable Autologgers" -ForegroundColor Cyan
-            $DisableAutologgers = (Get-Content $AutoLoggersFilePath | ConvertFrom-Json).Where( { $_.Disabled -eq 'True' })
+            $DisableAutologgers = (Get-Content $AutoLoggersFilePath | ConvertFrom-Json).Where( { $_.OptimizationState -eq 'Apply' })
             If ($DisableAutologgers.count -gt 0)
             {
                 Write-EventLog -EventId 50 -Message "Disable AutoLoggers" -LogName 'WDOT' -Source 'AutoLoggers' -EntryType Information

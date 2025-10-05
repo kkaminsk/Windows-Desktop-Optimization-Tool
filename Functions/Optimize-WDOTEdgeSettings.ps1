@@ -25,7 +25,7 @@ function Optimize-WDOTEdgeSettings
                 Write-Verbose "Processing Edge Policy Settings ($($EdgeSettings.Count) Hives)"
                 Foreach ($Key in $EdgeSettings)
                 {
-                    If ($Key.VDIState -eq 'Enabled')
+                    If ($Key.OptimizationState -eq 'Apply')
                     {
                         If ($key.RegItemValueName -eq 'DefaultAssociationsConfiguration')
                         {

@@ -29,7 +29,7 @@ function Optimize-WDOTNetworkOptimizations
                     {
                         Write-EventLog -EventId 70 -Message "Found $($Hive.HivePath)" -LogName 'WDOT' -Source 'NetworkOptimizations' -EntryType Information
                         Write-Verbose "Found $($Hive.HivePath)"
-                        $Keys = $Hive.Keys.Where{ $_.SetProperty -eq $true }
+                        $Keys = $Hive.Keys.Where{ $_.OptimizationState -eq "Apply" }
                         If ($Keys.Count -gt 0)
                         {
                             Write-EventLog -EventId 70 -Message "Create / Update LanManWorkstation Keys" -LogName 'WDOT' -Source 'NetworkOptimizations' -EntryType Information

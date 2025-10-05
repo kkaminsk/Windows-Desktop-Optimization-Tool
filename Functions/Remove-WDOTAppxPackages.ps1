@@ -18,7 +18,7 @@
         {
             Write-EventLog -EventId 20 -Message "[Windows Optimize] Removing Appx Packages" -LogName 'WDOT' -Source 'AppxPackages' -EntryType Information 
             Write-Host "[Windows Optimize] Removing Appx Packages" -ForegroundColor Cyan
-            $AppxPackage = (Get-Content $AppxConfigFilePath | ConvertFrom-Json).Where( { $_.VDIState -eq 'Disabled' })
+            $AppxPackage = (Get-Content $AppxConfigFilePath | ConvertFrom-Json).Where( { $_.OptimizationState -eq 'Apply' })
             If ($AppxPackage.Count -gt 0)
             {
                 Foreach ($Item in $AppxPackage)
