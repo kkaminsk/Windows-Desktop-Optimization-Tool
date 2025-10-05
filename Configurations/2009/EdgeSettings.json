@@ -5,7 +5,7 @@
         "RegItemValueName": "BackgroundModeEnabled",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
-        "VDIState": "Enabled"
+        "OptimiazationState": "Apply"
     },
     {
         "Description": "If you enable this policy, the First-run experience and the splash screen will not be shown to users when they run Microsoft Edge for the first time.",
@@ -13,7 +13,7 @@
         "RegItemValueName": "HideFirstRunExperience",
         "RegItemValueType": "DWord",
         "RegItemValue": "1",
-        "VDIState": "Enabled"
+        "OptimiazationState": "Apply"
     },
     {
         "Description": "This policy gives an option to disable one-time redirection dialog and the banner.",
@@ -21,7 +21,7 @@
         "RegItemValueName": "HideInternetExplorerRedirectUXForIncompatibleSitesEnabled",
         "RegItemValueType": "DWord",
         "RegItemValue": "1",
-        "VDIState": "Enabled"
+        "OptimiazationState": "Apply"
     },
     {
         "Description": "This policy setting lets you decide whether employees should receive recommendations and in-product assistance notifications from Microsoft Edge.",
@@ -29,7 +29,7 @@
         "RegItemValueName": "ShowRecommendationsEnabled",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
-        "VDIState": "Enabled"
+        "OptimiazationState": "Apply"
     },
     {
         "Description": "This policy lets you restrict launching of Internet Explorer as a standalone browser",
@@ -37,7 +37,7 @@
         "RegItemValueName": "NotifyDisableIEOptions",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
-        "VDIState": "Enabled"
+        "OptimiazationState": "Apply"
     },
     {
         "Description": "This policy specifies the path to a file (e.g. either stored locally or on a network location) that contains file type and protocol default application associations.",
@@ -45,7 +45,7 @@
         "RegItemValueName": "DefaultAssociationsConfiguration",
         "RegItemValueType": "String",
         "RegItemValue": "c:\\windows\\system32\\defaultassociations.xml",
-        "VDIState": "Unchanged"
+        "OptimiazationState": "Unchanged"
     },
     {
         "Description": "Allows Microsoft Edge processes to start at OS sign-in and restart in background after the last browser window is closed.",
@@ -53,7 +53,7 @@
         "RegItemValueName": "StartupBoostEnabled",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
-        "VDIState": "Enabled"
+        "OptimiazationState": "Apply"
     },
     {
         "Description": "Efficiency mode is always active. Efficiency mode is designed to help reduce background processing and extend battery life. It minimizes power usage by reducing resource usage (CPU usage) through modifying certain tab activity on tabs you’re not interacting with and putting inactive background tabs to sleep after 5 minutes or less. Supported since Edge v96.",
@@ -61,7 +61,7 @@
         "RegItemValueName": "EfficiencyMode",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
-        "VDIState": "Enabled"
+        "OptimiazationState": "Apply"
     },
     {
         "Description": "Policy setting to control an Edge search bar that gets placed on the user desktop automatically",
@@ -69,6 +69,6 @@
         "RegItemValueName": "WebWidgetAllowed",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
-        "VDIState": "Enabled"
+        "OptimiazationState": "Apply"
     }
 ]

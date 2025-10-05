@@ -6,31 +6,31 @@
                 "Name": "DisableBandwidthThrottling",
                 "PropertyType": "DWORD",
                 "PropertyValue": 1,
-                "SetProperty": "True"
+                "OptimizationState": "Apply"
             },
             {
                 "Name": "FileInfoCacheEntriesMax",
                 "PropertyType": "DWORD",
                 "PropertyValue": 1024,
-                "SetProperty": "True"
+                "OptimizationState": "Apply"
             },
             {
                 "Name": "DirectoryCacheEntriesMax",
                 "PropertyType": "DWORD",
                 "PropertyValue": 1024,
-                "SetProperty": "True"
+                "OptimizationState": "Apply"
             },
             {
                 "Name": "FileNotFoundCacheEntriesMax",
                 "PropertyType": "DWORD",
                 "PropertyValue": 1024,
-                "SetProperty": "True"
+                "OptimizationState": "Apply"
             },
             {
                 "Name": "DormantFileLimit",
                 "PropertyType": "DWORD",
                 "PropertyValue": 256,
-                "SetProperty": "True"
+                "OptimizationState": "Apply"
             }
         ]
     }
