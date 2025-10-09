@@ -1,5 +1,7 @@
 # Windows Desktop Optimization Tool
 
+![WDOT](/Images/WDOT_Icon1_Color.png)
+
 >## Welcome to the next evolution of the Virtual Desktop Optimization Tool
 >
 ![Static Badge](https://img.shields.io/badge/WDOT_Current_Version-1.0-blue)
@@ -16,7 +18,7 @@
 
 The Windows Desktop Optimization Tool (WDOT).....
 
-##  What's New
+## What's New
 
 ## 🛠️ Installation
 
