@@ -186,7 +186,7 @@
         "KeyName": "IconsOnly",
         "PropertyType": "DWORD",
         "PropertyValue": 1,
-        "OptimizationState": "Applye"
+        "OptimizationState": "Apply"
     },
     {
         "HivePath": "HKLM:\\WDOT_TEMP\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
@@ -417,6 +417,6 @@
         "KeyName": "TurnOffWindowsCopilot",
         "PropertyType": "DWORD",
         "PropertyValue": 1,
-        "OptimizationState": "Applye"
+        "OptimizationState": "Apply"
     }
 ]
