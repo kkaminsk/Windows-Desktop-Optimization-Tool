@@ -6,7 +6,7 @@ Param (
     
     [Parameter(Mandatory = $true, HelpMessage = "Specify the configuration folder name")]
     [ValidateNotNullOrEmpty()]
-    [ValidatePattern("^[a-zA-Z0-9_-]+$", ErrorMessage = "Folder name can only contain letters, numbers, underscores, and hyphens")]
+    [ValidatePattern("^[a-zA-Z0-9_-]+$")]
     [string]$ConfigFolderName,
     
     [Parameter(HelpMessage = "Apply all optimizations without prompting")]

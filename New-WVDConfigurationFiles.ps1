@@ -2,7 +2,7 @@
 Param (
     [Parameter(Mandatory = $true, HelpMessage = "Specify the name of the configuration folder to create")]
     [ValidateNotNullOrEmpty()]
-    [ValidatePattern("^[a-zA-Z0-9_-]+$", ErrorMessage = "Folder name can only contain letters, numbers, underscores, and hyphens")]
+    [ValidatePattern("^[a-zA-Z0-9_-]+$")]
     [string]$FolderName
 )
 

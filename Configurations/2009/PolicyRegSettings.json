@@ -1,5 +1,19 @@
 [
     {
+        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+        "RegItemValueName": "ConnectedSearchUseWeb",
+        "RegItemValueType": "DWord",
+        "RegItemValue": "0",
+        "OptimizationState": "Apply"
+    }, 
+    {
+        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+        "RegItemValueName": "AllowCloudSearch",
+        "RegItemValueType": "DWord",
+        "RegItemValue": "0",
+        "OptimizationState": "Apply"
+    },
+    {
         "RegItemPath": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy",
         "RegItemValueName": "DeleteUserAppContainersOnLogoff",
         "RegItemValueType": "DWord",
