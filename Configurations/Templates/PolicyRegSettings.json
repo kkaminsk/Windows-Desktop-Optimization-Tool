@@ -1,5 +1,19 @@
 [
     {
+        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+        "RegItemValueName": "ConnectedSearchUseWeb",
+        "RegItemValueType": "DWord",
+        "RegItemValue": "0",
+        "OptimizationState": "Skip"
+    },
+    {
+        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+        "RegItemValueName": "AllowCloudSearch",
+        "RegItemValueType": "DWord",
+        "RegItemValue": "0",
+        "OptimizationState": "Skip"
+    },
+    {
         "RegItemPath": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy",
         "RegItemValueName": "DeleteUserAppContainersOnLogoff",
         "RegItemValueType": "DWord",
@@ -120,7 +134,7 @@
     },
     {
         "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\HotspotAuthentication",
-        "RegItemValueName": "Skip",
+        "RegItemValueName": "Apply",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
         "OptimizationState": "Skip"
@@ -134,7 +148,7 @@
     },
     {
         "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetCache",
-        "RegItemValueName": "Skip",
+        "RegItemValueName": "Apply",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
         "OptimizationState": "Skip"
@@ -596,7 +610,7 @@
     },
     {
         "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Suggested Sites",
-        "RegItemValueName": "Skip",
+        "RegItemValueName": "Apply",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
         "OptimizationState": "Skip"
@@ -680,14 +694,14 @@
     },
     {
         "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\FlipAhead",
-        "RegItemValueName": "Skip",
+        "RegItemValueName": "Apply",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
         "OptimizationState": "Skip"
     },
     {
         "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\PrefetchPrerender",
-        "RegItemValueName": "Skip",
+        "RegItemValueName": "Apply",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
         "OptimizationState": "Skip"
@@ -999,13 +1013,15 @@
         "RegItemValueType": "DWord",
         "RegItemValue": "900",
         "OptimizationState": "Skip"
-    },{
+    },
+    {
         "RegItemPath": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\EdgeUpdate",
         "RegItemValueName": "UpdatesSuppressedStartHour",
         "RegItemValueType": "DWord",
         "RegItemValue": "4",
         "OptimizationState": "Skip"
-    },{
+    },
+    {
         "RegItemPath": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\EdgeUpdate",
         "RegItemValueName": "UpdatesSuppressedStartMin",
         "RegItemValueType": "DWord",
