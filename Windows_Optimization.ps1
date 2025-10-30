@@ -58,8 +58,13 @@ https://msdn.microsoft.com/en-us/library/cc422938.aspx
 [Cmdletbinding(DefaultParameterSetName = "Default")]
 Param (
     # Parameter help description
+    [Parameter(ParameterSetName = 'ByWindowsVersion', DontShow = $true)]
     [ArgumentCompleter( { Get-ChildItem $PSScriptRoot\Configurations -Directory | Select-Object -ExpandProperty Name } )]
     [System.String]$WindowsVersion = (Get-ItemProperty "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\").ReleaseId,
+
+    [Parameter(Mandatory, ParameterSetName = 'ByConfigProfile')]
+    [ArgumentCompleter( { Get-ChildItem $PSScriptRoot\Configurations -Directory | Select-Object -ExpandProperty Name } )]
+    [string]$ConfigProfile,
 
     [ValidateSet('All', 'WindowsMediaPlayer', 'AppxPackages', 'ScheduledTasks', 'DefaultUserSettings', 'LocalPolicy', 'Autologgers', 'Services', 'NetworkOptimizations', 'DiskCleanup')] 
     [String[]]
@@ -131,11 +136,22 @@ BEGIN
     {
         New-EventLog -Source $EventSources -LogName 'WDOT' -ErrorAction SilentlyContinue
     }
-    Write-EventLog -LogName 'WDOT' -Source 'WDOT' -EntryType Information -EventId 1 -Message "Starting WDOT by user '$env:USERNAME', for WDOT build '$WindowsVersion', with the following options:`n$($PSBoundParameters | Out-String)" 
+    
+   if ($PSCmdlet.ParameterSetName -eq 'ByWindowsVersion')
+    {
+        Write-Warning "The -WindowsVersion parameter is deprecated and will be removed in a future release. Use -ConfigProfile instead."
+        $ConfigPath =  $WindowsVersion
+    }
+    else
+    {
+        $ConfigPath = $ConfigProfile
+    }
+
+    Write-EventLog -LogName 'WDOT' -Source 'WDOT' -EntryType Information -EventId 1 -Message "Starting WDOT by user '$env:USERNAME', for WDOT build '$ConfigPath', with the following options:`n$($PSBoundParameters | Out-String)" 
 
     $StartTime = Get-Date
     $CurrentLocation = Get-Location
-    $WorkingLocation = (Join-Path $PSScriptRoot "Configurations\$WindowsVersion")
+    $WorkingLocation = (Join-Path $PSScriptRoot "Configurations\$ConfigPath")
 
     try
     {

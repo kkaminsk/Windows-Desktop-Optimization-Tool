@@ -19,8 +19,10 @@ Param (
     numbers, underscores, and hyphens.
 
 .EXAMPLE
-    New-WVDConfigurationFiles -FolderName "Production"
-    Creates a new folder called "Production" with all template files.
+    New-WVDConfigurationFiles -FolderName <your config name>
+    Ex. New-WVDConfigurationFiles -FolderName "W11_24H2"
+    Ex. New-WVDConfigurationFiles -FolderName "WS25_24H2"
+    Creates a new folder called <your config name> with all template files.
 
 .NOTES
     Author: Tim Muessig
