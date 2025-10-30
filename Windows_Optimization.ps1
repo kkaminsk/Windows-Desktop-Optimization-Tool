@@ -55,14 +55,14 @@ https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.manageme
 https://msdn.microsoft.com/en-us/library/cc422938.aspx
 #>
 
-[Cmdletbinding(DefaultParameterSetName = "Default")]
+[Cmdletbinding(DefaultParameterSetName = "ByConfigProfile")]
 Param (
     # Parameter help description
     [Parameter(ParameterSetName = 'ByWindowsVersion', DontShow = $true)]
     [ArgumentCompleter( { Get-ChildItem $PSScriptRoot\Configurations -Directory | Select-Object -ExpandProperty Name } )]
     [System.String]$WindowsVersion = (Get-ItemProperty "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\").ReleaseId,
 
-    [Parameter(Mandatory, ParameterSetName = 'ByConfigProfile')]
+    [Parameter(Mandatory = $true, ParameterSetName = 'ByConfigProfile')]
     [ArgumentCompleter( { Get-ChildItem $PSScriptRoot\Configurations -Directory | Select-Object -ExpandProperty Name } )]
     [string]$ConfigProfile,
 
@@ -137,21 +137,66 @@ BEGIN
         New-EventLog -Source $EventSources -LogName 'WDOT' -ErrorAction SilentlyContinue
     }
     
-   if ($PSCmdlet.ParameterSetName -eq 'ByWindowsVersion')
+    # Handle parameter set and validate configuration path
+    if ($PSCmdlet.ParameterSetName -eq 'ByWindowsVersion')
     {
         Write-Warning "The -WindowsVersion parameter is deprecated and will be removed in a future release. Use -ConfigProfile instead."
-        $ConfigPath =  $WindowsVersion
+        $ConfigPath = $WindowsVersion
     }
     else
     {
+        # Validate that ConfigProfile is provided and not empty
+        if ([string]::IsNullOrWhiteSpace($ConfigProfile))
+        {
+            $AvailableConfigs = Get-ChildItem "$PSScriptRoot\Configurations" -Directory -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name
+            $ConfigList = if ($AvailableConfigs) { $AvailableConfigs -join ', ' } else { 'No configurations found' }
+            
+            $Message = @"
+Configuration Profile is required but was not provided.
+
+Usage: .\Windows_Optimization.ps1 -ConfigProfile <ProfileName> -Optimizations <OptimizationList>
+
+Available Configuration Profiles: $ConfigList
+
+Example: .\Windows_Optimization.ps1 -ConfigProfile "Windows11_24H2" -Optimizations All -AcceptEULA
+
+To create a new configuration profile, use:
+.\New-WVDConfigurationFiles.ps1 -FolderName "YourConfigName"
+"@
+            
+            Write-Host $Message -ForegroundColor Yellow
+            Write-EventLog -Message "Script execution failed: ConfigProfile parameter is required but was not provided." -Source 'WDOT' -EventID 101 -EntryType Error -LogName 'WDOT' -ErrorAction SilentlyContinue
+            return
+        }
+        
         $ConfigPath = $ConfigProfile
     }
 
     Write-EventLog -LogName 'WDOT' -Source 'WDOT' -EntryType Information -EventId 1 -Message "Starting WDOT by user '$env:USERNAME', for WDOT build '$ConfigPath', with the following options:`n$($PSBoundParameters | Out-String)" 
 
+    # Validate configuration path exists
+    $WorkingLocation = (Join-Path $PSScriptRoot "Configurations\$ConfigPath")
+    if (-not (Test-Path $WorkingLocation -PathType Container))
+    {
+        $AvailableConfigs = Get-ChildItem "$PSScriptRoot\Configurations" -Directory -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name
+        $ConfigList = if ($AvailableConfigs) { $AvailableConfigs -join ', ' } else { 'No configurations found' }
+        
+        $Message = @"
+Configuration Profile '$ConfigPath' not found at: $WorkingLocation
+
+Available Configuration Profiles: $ConfigList
+
+To create this configuration profile, use:
+.\New-WVDConfigurationFiles.ps1 -FolderName "$ConfigPath"
+"@
+        
+        Write-Host $Message -ForegroundColor Red
+        Write-EventLog -Message "Invalid configuration path: $WorkingLocation" -Source 'WDOT' -EventID 100 -EntryType Error -LogName 'WDOT' -ErrorAction SilentlyContinue
+        return
+    }
+
     $StartTime = Get-Date
     $CurrentLocation = Get-Location
-    $WorkingLocation = (Join-Path $PSScriptRoot "Configurations\$ConfigPath")
 
     try
     {
@@ -159,10 +204,10 @@ BEGIN
     }
     catch
     {
-        $Message = "Invalid Path $WorkingLocation - Exiting Script!"
-        Write-EventLog -Message $Message -Source 'WDOT' -EventID 100 -EntryType Error -LogName 'WDOT'
-        Write-Warning $Message
-        Return
+        $Message = "Failed to access configuration directory: $WorkingLocation - Exiting Script!"
+        Write-EventLog -Message $Message -Source 'WDOT' -EventID 100 -EntryType Error -LogName 'WDOT' -ErrorAction SilentlyContinue
+        Write-Host $Message -ForegroundColor Red
+        return
     }
 } # End Begin
 
