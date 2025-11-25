@@ -26,7 +26,7 @@ function Remove-WDOTRemoveOneDrive
         }
 
         Write-EventLog -EventId 80 -Message "Removing shortcut links for OneDrive" -LogName 'WDOT' -Source 'AdvancedOptimizations' -EntryType Information
-        Get-ChildItem 'C:\*' -Recurse -Force -EA SilentlyContinue -Include 'OneDrive', 'OneDrive.*' | Remove-Item -Force -Recurse -EA SilentlyContinue
+        Get-ChildItem 'C:\*' -Recurse -Force -EA SilentlyContinue -Include 'OneDrive', 'OneDrive.exe', 'OneDrive.ico' -Exclude 'C:\Windows\WinSxS' | Remove-Item -Force -Recurse -EA SilentlyContinue
 
     }
     End
