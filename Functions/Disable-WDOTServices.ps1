@@ -33,7 +33,7 @@
             }  
             Else
             {
-                Write-EventLog -EventId 60 -Message "No Services found to disable" -LogName 'WDOT' -Source 'Services' -EntryType Warnnig
+                Write-EventLog -EventId 60 -Message "No Services found to disable" -LogName 'WDOT' -Source 'Services' -EntryType Warning
                 Write-Verbose "No Services found to disable"
             }
         }
