@@ -55,6 +55,11 @@
                       Source="..\Windows_Optimization.ps1"
                       KeyPath="yes" />
             </Component>
+            <Component Id="AuditScript" Guid="*">
+                <File Id="Get_WDOTAudit.ps1"
+                      Source="..\Get-WDOTAudit.ps1"
+                      KeyPath="yes" />
+            </Component>
             <Component Id="EULA" Guid="*">
                 <File Id="EULA.txt"
                       Source="..\EULA.txt"
@@ -135,6 +140,26 @@
             <Component Id="Func_RemoveWindowsMediaPlayer" Guid="*">
                 <File Id="Remove_WDOTWindowsMediaPlayer.ps1"
                       Source="..\Functions\Remove-WDOTWindowsMediaPlayer.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_AuditServices" Guid="*">
+                <File Id="Get_WDOTAuditServices.ps1"
+                      Source="..\Functions\Get-WDOTAuditServices.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_AuditAppxPackages" Guid="*">
+                <File Id="Get_WDOTAuditAppxPackages.ps1"
+                      Source="..\Functions\Get-WDOTAuditAppxPackages.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_AuditScheduledTasks" Guid="*">
+                <File Id="Get_WDOTAuditScheduledTasks.ps1"
+                      Source="..\Functions\Get-WDOTAuditScheduledTasks.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_AuditRegistry" Guid="*">
+                <File Id="Get_WDOTAuditRegistry.ps1"
+                      Source="..\Functions\Get-WDOTAuditRegistry.ps1"
                       KeyPath="yes" />
             </Component>
         </ComponentGroup>

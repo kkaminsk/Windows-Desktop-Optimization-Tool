@@ -292,6 +292,7 @@ A read-only script that compares current system state against WDOT configuration
 
 #### Usage
 
+**From the source directory:**
 ```powershell
 # Full audit with console output
 .\Get-WDOTAudit.ps1 -ConfigProfile W365-CloudPC
@@ -304,6 +305,27 @@ A read-only script that compares current system state against WDOT configuration
 
 # Verbose output for troubleshooting
 .\Get-WDOTAudit.ps1 -ConfigProfile W365-CloudPC -Verbose
+```
+
+**After MSI Installation (from installed location):**
+```powershell
+# Run audit from Program Files installation directory
+cd "C:\Program Files\WDOT"
+.\Get-WDOTAudit.ps1 -ConfigProfile W365-CloudPC
+
+# Or run directly with full path
+& "C:\Program Files\WDOT\Get-WDOTAudit.ps1" -ConfigProfile W365-CloudPC
+
+# Export audit results to file
+& "C:\Program Files\WDOT\Get-WDOTAudit.ps1" -ConfigProfile W365-CloudPC -OutputFormat JSON -OutputPath C:\Temp\wdot-audit.json
+```
+
+**Remote Audit via PowerShell Remoting:**
+```powershell
+# Run audit on remote Cloud PC
+Invoke-Command -ComputerName "CloudPC-001" -ScriptBlock {
+    & "C:\Program Files\WDOT\Get-WDOTAudit.ps1" -ConfigProfile W365-CloudPC
+}
 ```
 
 #### Categories Audited
