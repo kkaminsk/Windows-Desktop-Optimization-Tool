@@ -1,0 +1,138 @@
+[
+  {
+    "Name": "InstallService",
+    "OptimizationState": "Skip",
+    "URL": "",
+    "Description": "Provides infrastructure support for the Microsoft Store."
+  },
+  {
+    "Name": "autotimesvc",
+    "OptimizationState": "Skip",
+    "URL": "https://docs.microsoft.com/en-us/windows-hardware/drivers/network/mb-nitz-support",
+    "Description": "Cellular Time service: this service sets time based on NITZ messages from a Mobile Network"
+  },
+  {
+    "Name": "BcastDVRUserService",
+    "OptimizationState": "Skip",
+    "URL": "https://docs.microsoft.com/en-us/windows-hardware/drivers/network/mb-nitz-support",
+    "Description": "This user service is used for Game Recordings and Live Broadcasts"
+  },
+  {
+    "Name": "defragsvc",
+    "OptimizationState": "Skip",
+    "Description": "Optimize drives"
+  },
+  {
+    "Name": "DiagSvc",
+    "OptimizationState": "Skip",
+    "Description": "Diagnostic Execution Service"
+  },
+  {
+    "Name": "DiagTrack",
+    "OptimizationState": "Skip",
+    "Description": "Connected User Experiences and Telemetry."
+  },
+  {
+    "Name": "DPS",
+    "OptimizationState": "Skip",
+    "URL": "https://docs.microsoft.com/en-us/uwp/api/Windows.System.Diagnostics?view=winrt-19041",
+    "Description": "The Diagnostic Policy Service enables problem detection, troubleshooting and resolution for Windows components. If this service is stopped, diagnostics will no longer function."
+  },
+  {
+    "Name": "DusmSvc",
+    "OptimizationState": "Skip",
+    "URL": "https://docs.microsoft.com/en-us/uwp/schemas/mobilebroadbandschema/dusm/schema-root",
+    "Description": "Data Usage service: network data usage, data limit, restrict background data, metered networks."
+  },
+  {
+    "Name": "icssvc",
+    "OptimizationState": "Skip",
+    "URL": "https://docs.microsoft.com/en-us/uwp/api/Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration?view=winrt-19041",
+    "Description": "Windows Mobile Hotspot (tethering) service: provides the ability to share a cellular data connection with another device."
+  },
+  {
+    "Name": "lfsvc",
+    "OptimizationState": "Skip",
+    "URL": "https://docs.microsoft.com/en-us/uwp/api/Windows.Devices.Geolocation?view=winrt-19041",
+    "Description": "Geolocation Service. This service monitors the current location of the system and manages geofences (a geographical location with associated events). If you turn off this service, applications will be unable to use or receive notifications for geolocation or geofences."
+  },
+  {
+    "Name": "MapsBroker",
+    "OptimizationState": "Skip",
+    "URL": "https://docs.microsoft.com/en-us/uwp/api/Windows.Services.Maps?view=winrt-19041",
+    "Description": "Downloaded maps manager. Windows service for application access to downloaded maps."
+  },
+  {
+    "Name": "MessagingService",
+    "OptimizationState": "Skip",
+    "Description": "Service supporting text messaging and related functionality."
+  },
+  {
+    "Name": "RmSvc",
+    "OptimizationState": "Skip",
+    "Description": "Radio Management and Airplane Mode Service."
+  },
+  {
+    "Name": "SEMgrSvc",
+    "OptimizationState": "Skip",
+    "Description": "Payments and NFC/SE Manager: manages payments and Near Field Communication (NFC) based secure elements."
+  },
+  {
+    "Name": "SmsRouter",
+    "OptimizationState": "Skip",
+    "URL": "https://docs.microsoft.com/en-us/dotnet/framework/wcf/feature-details/routing-service",
+    "Description": "Microsoft Windows SMS Router Service: routes messages based on rules to appropriate clients.."
+  },
+  {
+    "Name": "SysMain",
+    "OptimizationState": "Skip",
+    "Description": "Maintains and improves system performance over time."
+  },
+  {
+    "Name": "VSS",
+    "OptimizationState": "Skip",
+    "URL": "https://docs.microsoft.com/en-us/windows-server/storage/file-server/volume-shadow-copy-service",
+    "Description": "Volume Shadow Copy"
+  },
+  {
+    "Name": "WdiSystemHost",
+    "OptimizationState": "Skip",
+    "Description": "Diagnostic System Host service. The Diagnostic System Host is used by the Diagnostic Policy Service to host diagnostics that need to run in a Local System context.  If this service is stopped, any diagnostics that depend on it will no longer function."
+  },
+  {
+    "Name": "WerSvc",
+    "OptimizationState": "Skip",
+    "URL": "https://docs.microsoft.com/en-us/windows/win32/wer/windows-error-reporting",
+    "Description": "Windows Error Reporting Service allows errors to be reported when programs stop working or responding and allows existing solutions to be delivered. Also allows logs to be generated for diagnostic and repair services."
+  },
+  {
+    "Name": "XblAuthManager",
+    "OptimizationState": "Skip",
+    "Description": "Xbox Live Auth Manager service provides authentication and authorization services for interacting with Xbox Live."
+  },
+  {
+    "Name": "XblGameSave",
+    "OptimizationState": "Skip",
+    "Description": "Xbox Live Game Save service syncs save data for Xbox Live save enabled games."
+  },
+  {
+    "Name": "XboxGipSvc",
+    "OptimizationState": "Skip",
+    "Description": "Xbox Accessory Management manages connected Xbox accessories."
+  },
+  {
+    "Name": "XboxNetApiSvc",
+    "OptimizationState": "Skip",
+    "Description": "Xbox Live Networking Service"
+  },
+  {
+    "Name": "LanmanServer",
+    "OptimizationState": "Apply",
+    "Description": "Server service - provides SMB file sharing. Disabled for Windows 365 Cloud PC (SMB not needed on Microsoft-hosted network)."
+  },
+  {
+    "Name": "LanmanWorkstation",
+    "OptimizationState": "Apply",
+    "Description": "Workstation service - SMB client for accessing network shares. Disabled for Windows 365 Cloud PC (SMB not needed on Microsoft-hosted network)."
+  }
+]

@@ -373,6 +373,43 @@ This XML file is referenced by the `EdgeSettings.json` policy `DefaultAssociatio
 
 ---
 
+## Configuration Profiles
+
+### Available Profiles
+
+| Profile | Description |
+|---------|-------------|
+| `Templates` | Base templates with conservative defaults (all optimizations set to Skip) |
+| `W365-CloudPC` | **NEW in v1.1** - Optimized for Windows 365 Cloud PC with Intune/Azure Monitor compatibility |
+| `2009` | Legacy profile for Windows 10 2009 (may contain deprecated IE/Edge settings) |
+
+### W365-CloudPC Profile
+
+The `W365-CloudPC` profile is specifically designed for Windows 365 Cloud PC environments. Key differences from base templates:
+
+**Services.json:**
+- `LanmanServer` and `LanmanWorkstation` set to **Apply** (disabled) - SMB not needed on Microsoft-hosted network
+- All telemetry services remain **Skip** (protected for Intune)
+
+**No LanManWorkstation.json** - SMB tuning is not needed when SMB services are disabled
+
+**All other files** - Identical to Templates with verified Intune/Azure Monitor compatibility
+
+#### Using the W365-CloudPC Profile
+
+```powershell
+# Run optimization with Cloud PC profile
+.\Windows_Optimization.ps1 -ConfigProfile "W365-CloudPC" -Optimizations All -AcceptEULA
+
+# Or create a custom profile based on W365-CloudPC
+Copy-Item -Path ".\Configurations\W365-CloudPC\*" -Destination ".\Configurations\MyCloudPC\" -Recurse
+.\Windows_Optimization.ps1 -ConfigProfile "MyCloudPC" -Optimizations All -AcceptEULA
+```
+
+> **Warning:** Do NOT use the W365-CloudPC profile on traditional VDI or on-premises machines that require SMB file sharing - the disabled SMB services will break access to network shares and printers.
+
+---
+
 ## Usage
 
 ### Creating a New Configuration Profile
@@ -409,6 +446,61 @@ This XML file is referenced by the `EdgeSettings.json` policy `DefaultAssociatio
 3. **VDI Optimization**: Many settings are specifically designed for VDI/AVD environments
 4. **Reversibility**: Some optimizations (like removing apps) may require reinstallation to reverse
 5. **Dependencies**: Some services have dependencies that may prevent disabling
+
+---
+
+## Intune and Azure Monitor Compatibility
+
+When deploying to Windows 365 Cloud PC or Intune-managed devices, certain services, tasks, and policies must remain enabled for Endpoint Analytics and Azure Monitor to function properly.
+
+### Services - NEVER Disable for Intune/Azure Monitor
+
+These services are required for telemetry and diagnostics:
+
+| Service | Reason |
+|---------|--------|
+| `DiagTrack` | **CRITICAL** - Primary telemetry service for Endpoint Analytics |
+| `DPS` | Diagnostic Policy Service - enables problem detection |
+| `WdiSystemHost` | Diagnostic System Host - required for diagnostic hosting |
+| `WerSvc` | Windows Error Reporting - required for app reliability |
+| `DiagSvc` | Diagnostic Execution Service |
+| `InstallService` | Required for Microsoft Store modern apps |
+| `VSS` | Required for point-in-time restore capabilities |
+
+### Scheduled Tasks - NEVER Disable for Intune/Azure Monitor
+
+| Task | Reason |
+|------|--------|
+| `*Compatibility*` | **CRITICAL** - Microsoft Compatibility Appraiser for Endpoint Analytics |
+| `Microsoft-Windows-DiskDiagnosticDataCollector` | Required for disk diagnostic telemetry |
+| `Consolidator` | Required for CEIP/telemetry data collection |
+| `Sqm-Tasks` | Required for TPM/Secure Boot compliance reporting |
+| `StartComponentCleanup` | Required for persistent VDI disk maintenance |
+| `Restore` | Required for cloud settings sync on persistent VDI |
+
+### Policies - NEVER Apply for Maximum Telemetry
+
+These policy settings must remain as "Skip" to ensure full telemetry:
+
+| Setting | Reason |
+|---------|--------|
+| `CEIPEnable` | Required for Customer Experience data |
+| `DisableInventory` | **CRITICAL** - Required for app inventory in Endpoint Analytics |
+| `EnableDiagnostics` | Required for scripted diagnostics |
+| `EnabledExecution` | Required for scheduled diagnostics |
+| All `ScenarioExecutionEnabled` (7 WDI GUIDs) | Required for diagnostic scenarios |
+
+### AppX Packages - Recommended to Keep
+
+For productivity on Cloud PC environments, consider keeping:
+
+| Package | Reason |
+|---------|--------|
+| `Microsoft.Copilot` | Microsoft AI assistant |
+| `Microsoft.MicrosoftStickyNotes` | Productivity app |
+| `Microsoft.Todos` | Task management app |
+| `Microsoft.WindowsNotepad` | Essential text editor |
+| `Microsoft.WindowsTerminal` | Modern terminal application |
 
 ---
 

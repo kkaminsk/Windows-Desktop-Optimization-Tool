@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Windows Desktop Optimization Tool (WDOT) - WiX Installer
+
+    This installer deploys WDOT files and executes the optimization script
+    during installation. Designed for Windows 365 Cloud PC environments.
+
+    Build with: wix build -o WDOT-1.1-W365CloudPC.msi WDOT.wxs
+
+    Silent install: msiexec /i WDOT-1.1-W365CloudPC.msi /qn
+    With logging:   msiexec /i WDOT-1.1-W365CloudPC.msi /qn /l*v install.log
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+    <Package Name="Windows Desktop Optimization Tool"
+             Manufacturer="Microsoft"
+             Version="1.1.0.0"
+             UpgradeCode="51115B56-21BF-4170-BB49-62864D60F0FB"
+             Scope="perMachine"
+             Language="1033"
+             Codepage="1252">
+
+        <!-- Summary Information -->
+        <SummaryInformation Description="Windows Desktop Optimization Tool for Windows 365 Cloud PC"
+                           Keywords="WDOT, Optimization, VDI, Windows 365, Cloud PC"
+                           Manufacturer="Microsoft" />
+
+        <!-- Support upgrade from previous versions -->
+        <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."
+                      Schedule="afterInstallInitialize" />
+
+        <!-- Embed CAB in MSI for single-file distribution -->
+        <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+        <!-- ================================================================== -->
+        <!-- Directory Structure                                                 -->
+        <!-- ================================================================== -->
+
+        <StandardDirectory Id="ProgramFilesFolder">
+            <Directory Id="INSTALLFOLDER" Name="WDOT">
+                <Directory Id="FunctionsFolder" Name="Functions" />
+                <Directory Id="ConfigurationsFolder" Name="Configurations">
+                    <Directory Id="W365CloudPCFolder" Name="W365-CloudPC" />
+                </Directory>
+            </Directory>
+        </StandardDirectory>
+
+        <!-- ================================================================== -->
+        <!-- Main Script Components                                              -->
+        <!-- ================================================================== -->
+
+        <ComponentGroup Id="MainComponents" Directory="INSTALLFOLDER">
+            <Component Id="MainScript" Guid="*">
+                <File Id="Windows_Optimization.ps1"
+                      Source="..\Windows_Optimization.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="EULA" Guid="*">
+                <File Id="EULA.txt"
+                      Source="..\EULA.txt"
+                      KeyPath="yes" />
+            </Component>
+        </ComponentGroup>
+
+        <!-- ================================================================== -->
+        <!-- Function Module Components                                          -->
+        <!-- ================================================================== -->
+
+        <ComponentGroup Id="FunctionComponents" Directory="FunctionsFolder">
+            <Component Id="Func_DisableAutoLoggers" Guid="*">
+                <File Id="Disable_WDOTAutoLoggers.ps1"
+                      Source="..\Functions\Disable-WDOTAutoLoggers.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_DisableScheduledTasks" Guid="*">
+                <File Id="Disable_WDOTScheduledTasks.ps1"
+                      Source="..\Functions\Disable-WDOTScheduledTasks.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_DisableServices" Guid="*">
+                <File Id="Disable_WDOTServices.ps1"
+                      Source="..\Functions\Disable-WDOTServices.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_GetOperatingSystemInfo" Guid="*">
+                <File Id="Get_WDOTOperatingSystemInfo.ps1"
+                      Source="..\Functions\Get-WDOTOperatingSystemInfo.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_NewCommentBox" Guid="*">
+                <File Id="New_WDOTCommentBox.ps1"
+                      Source="..\Functions\New-WDOTCommentBox.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_OptimizeDefaultUserSettings" Guid="*">
+                <File Id="Optimize_WDOTDefaultUserSettings.ps1"
+                      Source="..\Functions\Optimize-WDOTDefaultUserSettings.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_OptimizeDiskCleanup" Guid="*">
+                <File Id="Optimize_WDOTDiskCleanup.ps1"
+                      Source="..\Functions\Optimize-WDOTDiskCleanup.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_OptimizeEdgeSettings" Guid="*">
+                <File Id="Optimize_WDOTEdgeSettings.ps1"
+                      Source="..\Functions\Optimize-WDOTEdgeSettings.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_OptimizeLocalPolicySettings" Guid="*">
+                <File Id="Optimize_WDOTLocalPolicySettings.ps1"
+                      Source="..\Functions\Optimize-WDOTLocalPolicySettings.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_OptimizeNetworkOptimizations" Guid="*">
+                <File Id="Optimize_WDOTNetworkOptimizations.ps1"
+                      Source="..\Functions\Optimize-WDOTNetworkOptimizations.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_RemoveAppxPackages" Guid="*">
+                <File Id="Remove_WDOTAppxPackages.ps1"
+                      Source="..\Functions\Remove-WDOTAppxPackages.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_RemoveLegacyIE" Guid="*">
+                <File Id="Remove_WDOTRemoveLegacyIE.ps1"
+                      Source="..\Functions\Remove-WDOTRemoveLegacyIE.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_RemoveOneDrive" Guid="*">
+                <File Id="Remove_WDOTRemoveOneDrive.ps1"
+                      Source="..\Functions\Remove-WDOTRemoveOneDrive.ps1"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Func_RemoveWindowsMediaPlayer" Guid="*">
+                <File Id="Remove_WDOTWindowsMediaPlayer.ps1"
+                      Source="..\Functions\Remove-WDOTWindowsMediaPlayer.ps1"
+                      KeyPath="yes" />
+            </Component>
+        </ComponentGroup>
+
+        <!-- ================================================================== -->
+        <!-- Configuration File Components (W365-CloudPC Profile)               -->
+        <!-- ================================================================== -->
+
+        <ComponentGroup Id="ConfigComponents" Directory="W365CloudPCFolder">
+            <Component Id="Config_AppxPackages" Guid="*">
+                <File Id="AppxPackages.json"
+                      Source="..\Configurations\W365-CloudPC\AppxPackages.json"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Config_Autologgers" Guid="*">
+                <File Id="Autologgers.Json"
+                      Source="..\Configurations\W365-CloudPC\Autologgers.Json"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Config_DefaultAssociations" Guid="*">
+                <File Id="DefaultAssociationsConfiguration.xml"
+                      Source="..\Configurations\W365-CloudPC\DefaultAssociationsConfiguration.xml"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Config_DefaultUserSettings" Guid="*">
+                <File Id="DefaultUserSettings.json"
+                      Source="..\Configurations\W365-CloudPC\DefaultUserSettings.json"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Config_EdgeSettings" Guid="*">
+                <File Id="EdgeSettings.json"
+                      Source="..\Configurations\W365-CloudPC\EdgeSettings.json"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Config_PolicyRegSettings" Guid="*">
+                <File Id="PolicyRegSettings.json"
+                      Source="..\Configurations\W365-CloudPC\PolicyRegSettings.json"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Config_ScheduledTasks" Guid="*">
+                <File Id="ScheduledTasks.json"
+                      Source="..\Configurations\W365-CloudPC\ScheduledTasks.json"
+                      KeyPath="yes" />
+            </Component>
+            <Component Id="Config_Services" Guid="*">
+                <File Id="Services.json"
+                      Source="..\Configurations\W365-CloudPC\Services.json"
+                      KeyPath="yes" />
+            </Component>
+        </ComponentGroup>
+
+        <!-- ================================================================== -->
+        <!-- Feature Definition                                                  -->
+        <!-- ================================================================== -->
+
+        <Feature Id="Complete"
+                 Title="Windows Desktop Optimization Tool"
+                 Description="Installs WDOT and applies Windows 365 Cloud PC optimizations."
+                 Level="1"
+                 ConfigurableDirectory="INSTALLFOLDER"
+                 AllowAbsent="no">
+            <ComponentGroupRef Id="MainComponents" />
+            <ComponentGroupRef Id="FunctionComponents" />
+            <ComponentGroupRef Id="ConfigComponents" />
+        </Feature>
+
+        <!-- ================================================================== -->
+        <!-- Custom Action: Run Optimization Script                              -->
+        <!-- ================================================================== -->
+
+        <!--
+            This custom action runs the optimization script after files are installed.
+            - Execute="deferred" : Runs elevated (as SYSTEM)
+            - Impersonate="no"   : Runs as LocalSystem, not impersonated user
+            - Return="check"     : Installation fails if script returns non-zero
+        -->
+        <CustomAction Id="RunOptimization"
+                      Execute="deferred"
+                      Impersonate="no"
+                      Return="check"
+                      Directory="INSTALLFOLDER"
+                      ExeCommand="powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -WindowStyle Hidden -File &quot;[INSTALLFOLDER]Windows_Optimization.ps1&quot; -ConfigProfile W365-CloudPC -Optimizations All -AdvancedOptimizations All -AcceptEULA" />
+
+        <!-- Set the custom action data (required for deferred actions to access properties) -->
+        <SetProperty Id="RunOptimization"
+                     Before="RunOptimization"
+                     Sequence="execute"
+                     Value="[INSTALLFOLDER]" />
+
+        <!-- Schedule the custom action -->
+        <InstallExecuteSequence>
+            <!-- Run optimization only on fresh install or upgrade, not on uninstall -->
+            <Custom Action="RunOptimization" After="InstallFiles" Condition="NOT REMOVE~=&quot;ALL&quot;" />
+        </InstallExecuteSequence>
+
+    </Package>
+
+</Wix>
