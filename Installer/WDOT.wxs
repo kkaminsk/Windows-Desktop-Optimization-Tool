@@ -9,6 +9,10 @@
 
     Silent install: msiexec /i WDOT-1.1-W365CloudPC.msi /qn
     With logging:   msiexec /i WDOT-1.1-W365CloudPC.msi /qn /l*v install.log
+
+    Optional Properties:
+      AUDIT=TRUE    Install the configuration audit tool and Start Menu shortcut
+                    Example: msiexec /i WDOT-1.1-W365CloudPC.msi /qn AUDIT=TRUE
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
 
@@ -60,14 +64,21 @@
                       Source="..\Windows_Optimization.ps1"
                       KeyPath="yes" />
             </Component>
-            <Component Id="AuditScript" Guid="*">
-                <File Id="Get_WDOTAudit.ps1"
-                      Source="..\Get-WDOTAudit.ps1"
-                      KeyPath="yes" />
-            </Component>
             <Component Id="EULA" Guid="*">
                 <File Id="EULA.txt"
                       Source="..\EULA.txt"
+                      KeyPath="yes" />
+            </Component>
+        </ComponentGroup>
+
+        <!-- ================================================================== -->
+        <!-- Audit Script Components (Optional - requires AUDIT=TRUE)           -->
+        <!-- ================================================================== -->
+
+        <ComponentGroup Id="AuditComponents" Directory="INSTALLFOLDER">
+            <Component Id="AuditScript" Guid="*">
+                <File Id="Get_WDOTAudit.ps1"
+                      Source="..\Get-WDOTAudit.ps1"
                       KeyPath="yes" />
             </Component>
         </ComponentGroup>
@@ -147,6 +158,13 @@
                       Source="..\Functions\Remove-WDOTWindowsMediaPlayer.ps1"
                       KeyPath="yes" />
             </Component>
+        </ComponentGroup>
+
+        <!-- ================================================================== -->
+        <!-- Audit Function Components (Optional - requires AUDIT=TRUE)         -->
+        <!-- ================================================================== -->
+
+        <ComponentGroup Id="AuditFunctionComponents" Directory="FunctionsFolder">
             <Component Id="Func_AuditServices" Guid="*">
                 <File Id="Get_WDOTAuditServices.ps1"
                       Source="..\Functions\Get-WDOTAuditServices.ps1"
@@ -217,10 +235,10 @@
         </ComponentGroup>
 
         <!-- ================================================================== -->
-        <!-- Start Menu Shortcuts                                                -->
+        <!-- Audit Start Menu Shortcuts (Optional - requires AUDIT=TRUE)        -->
         <!-- ================================================================== -->
 
-        <ComponentGroup Id="ShortcutComponents" Directory="WDOTStartMenuFolder">
+        <ComponentGroup Id="AuditShortcutComponents" Directory="WDOTStartMenuFolder">
             <Component Id="AuditShortcut" Guid="*">
                 <Shortcut Id="WDOTAuditShortcut"
                           Name="WDOT Configuration Audit"
@@ -246,8 +264,35 @@
             <ComponentGroupRef Id="MainComponents" />
             <ComponentGroupRef Id="FunctionComponents" />
             <ComponentGroupRef Id="ConfigComponents" />
-            <ComponentGroupRef Id="ShortcutComponents" />
         </Feature>
+
+        <!-- ================================================================== -->
+        <!-- Audit Feature (Optional - requires AUDIT=TRUE property)            -->
+        <!-- ================================================================== -->
+
+        <!--
+            The Audit feature is disabled by default (Level="1000" = not selected).
+            To install audit tools, use: msiexec /i WDOT.msi AUDIT=TRUE
+            Or use: msiexec /i WDOT.msi ADDLOCAL=Complete,AuditFeature
+        -->
+        <Property Id="AUDIT" Secure="yes" />
+
+        <Feature Id="AuditFeature"
+                 Title="Configuration Audit Tool"
+                 Description="Installs the WDOT configuration audit script and Start Menu shortcut."
+                 Level="1000"
+                 AllowAbsent="yes"
+                 InstallDefault="local">
+            <ComponentGroupRef Id="AuditComponents" />
+            <ComponentGroupRef Id="AuditFunctionComponents" />
+            <ComponentGroupRef Id="AuditShortcutComponents" />
+        </Feature>
+
+        <!-- Custom action to enable AuditFeature when AUDIT property is set -->
+        <CustomAction Id="EnableAuditFeature"
+                      Property="ADDLOCAL"
+                      Value="[ADDLOCAL],AuditFeature"
+                      Execute="firstSequence" />
 
         <!-- ================================================================== -->
         <!-- Custom Action: Run Optimization Script                              -->
@@ -272,8 +317,14 @@
                      Sequence="execute"
                      Value="[INSTALLFOLDER]" />
 
-        <!-- Schedule the custom action -->
+        <!-- Schedule custom actions -->
+        <InstallUISequence>
+            <Custom Action="EnableAuditFeature" Before="CostInitialize" Condition="AUDIT AND NOT ADDLOCAL" />
+        </InstallUISequence>
+
         <InstallExecuteSequence>
+            <!-- Enable audit feature when AUDIT property is set -->
+            <Custom Action="EnableAuditFeature" Before="CostInitialize" Condition="AUDIT AND NOT ADDLOCAL" />
             <!-- Run optimization only on fresh install or upgrade, not on uninstall -->
             <Custom Action="RunOptimization" After="InstallFiles" Condition="NOT REMOVE~=&quot;ALL&quot;" />
         </InstallExecuteSequence>

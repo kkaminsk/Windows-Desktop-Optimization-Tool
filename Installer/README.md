@@ -62,6 +62,19 @@ msiexec /i WDOT-1.1-W365CloudPC.msi /qn
 msiexec /i WDOT-1.1-W365CloudPC.msi /qn /l*v C:\Logs\wdot-install.log
 ```
 
+### Installation with Audit Tool (Optional)
+
+The configuration audit tool is **not installed by default**. To include it:
+
+```cmd
+msiexec /i WDOT-1.1-W365CloudPC.msi /qn AUDIT=TRUE
+```
+
+This installs:
+- `Get-WDOTAudit.ps1` - Main audit script
+- Audit function modules (4 files)
+- Start Menu shortcut: **Start > WDOT > WDOT Configuration Audit**
+
 ### Interactive Installation
 
 ```cmd
@@ -206,6 +219,12 @@ Edit `WDOT.wxs` and comment out or remove:
 | ProductVersion | 1.1.0.0 |
 | UpgradeCode | 51115B56-21BF-4170-BB49-62864D60F0FB |
 | InstallScope | perMachine |
+
+### Optional Properties
+
+| Property | Default | Description |
+|----------|---------|-------------|
+| AUDIT | (not set) | Set to `TRUE` to install the configuration audit tool and Start Menu shortcut |
 
 ### Custom Action Details
 

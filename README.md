@@ -260,11 +260,14 @@ cd Installer
 ### Silent Deployment
 
 ```cmd
-# Silent installation
+# Silent installation (optimization only, no audit tool)
 msiexec /i WDOT-1.1-W365CloudPC.msi /qn
 
 # With logging
 msiexec /i WDOT-1.1-W365CloudPC.msi /qn /l*v install.log
+
+# Include optional audit tool
+msiexec /i WDOT-1.1-W365CloudPC.msi /qn AUDIT=TRUE
 ```
 
 ### What the Installer Does
@@ -272,7 +275,10 @@ msiexec /i WDOT-1.1-W365CloudPC.msi /qn /l*v install.log
 1. Installs WDOT files to `C:\Program Files\WDOT`
 2. Automatically runs optimization with W365-CloudPC profile
 3. Applies all standard and advanced optimizations
-4. Creates Start Menu shortcut: **Start > WDOT > WDOT Configuration Audit**
+
+**Optional (with AUDIT=TRUE):**
+4. Installs configuration audit tool (`Get-WDOTAudit.ps1`)
+5. Creates Start Menu shortcut: **Start > WDOT > WDOT Configuration Audit**
 
 📖 **For detailed installer documentation, see: [Installer/README.md](Installer/README.md)**
 
