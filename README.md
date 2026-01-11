@@ -215,6 +215,7 @@ Use `Set-WVDConfigurations.ps1` for interactive configuration:
 ```
 Windows-Desktop-Optimization-Tool/
 ├── Windows_Optimization.ps1           # Main optimization script
+├── Get-WDOTAudit.ps1                  # Configuration audit tool (v1.1)
 ├── New-WVDConfigurationFiles.ps1      # Configuration profile creator
 ├── Set-WVDConfigurations.ps1          # Interactive configuration tool
 ├── EULA.txt                           # End User License Agreement
@@ -231,7 +232,11 @@ Windows-Desktop-Optimization-Tool/
 │   │   └── DefaultAssociationsConfiguration.xml # File associations
 │   ├── W365-CloudPC/                  # Windows 365 Cloud PC profile (v1.1)
 │   └── [Custom Profiles]/            # User-created configuration profiles
-├── Functions/                         # Optimization function modules
+├── Functions/                         # Optimization and audit function modules
+│   ├── Disable-WDOT*.ps1             # Optimization functions
+│   ├── Remove-WDOT*.ps1              # Removal functions
+│   ├── Optimize-WDOT*.ps1            # Configuration functions
+│   └── Get-WDOTAudit*.ps1            # Audit functions (v1.1)
 ├── Installer/                         # WiX MSI installer (v1.1)
 │   ├── WDOT.wxs                      # WiX source file
 │   ├── Build.ps1                     # PowerShell build script
@@ -269,6 +274,71 @@ msiexec /i WDOT-1.1-W365CloudPC.msi /qn /l*v install.log
 3. Applies all standard and advanced optimizations
 
 📖 **For detailed installer documentation, see: [Installer/README.md](Installer/README.md)**
+
+## 🔎 Configuration Audit Tool
+
+WDOT includes a standalone audit script for system administrators to verify optimization compliance.
+
+### Get-WDOTAudit.ps1
+
+A read-only script that compares current system state against WDOT configuration files and reports compliance status.
+
+#### Features
+
+- **Read-only**: Makes no system modifications
+- **Compliance reporting**: Shows which optimizations are applied vs. drifted
+- **Multiple output formats**: Console (color-coded) or JSON for automation
+- **Category filtering**: Audit specific categories only
+
+#### Usage
+
+```powershell
+# Full audit with console output
+.\Get-WDOTAudit.ps1 -ConfigProfile W365-CloudPC
+
+# Audit specific categories
+.\Get-WDOTAudit.ps1 -ConfigProfile W365-CloudPC -Categories Services,AppxPackages
+
+# Export to JSON for automation/reporting
+.\Get-WDOTAudit.ps1 -ConfigProfile W365-CloudPC -OutputFormat JSON -OutputPath C:\Temp\audit.json
+
+# Verbose output for troubleshooting
+.\Get-WDOTAudit.ps1 -ConfigProfile W365-CloudPC -Verbose
+```
+
+#### Categories Audited
+
+| Category | What It Checks |
+|----------|----------------|
+| `Services` | Service startup type matches config (Disabled) |
+| `AppxPackages` | Apps configured for removal are not installed |
+| `ScheduledTasks` | Tasks configured for disable are Disabled |
+| `Registry` | Registry values match PolicyRegSettings.json |
+
+#### Sample Output
+
+```
+WDOT Configuration Audit
+========================
+Profile: W365-CloudPC
+Date: 2026-01-11 15:30:00
+
+Services (2 items)
+--------------------------------------------------
+[COMPLIANT] LanmanServer: Disabled (expected: Disabled)
+[COMPLIANT] LanmanWorkstation: Disabled (expected: Disabled)
+
+AppxPackages (49 items)
+--------------------------------------------------
+[COMPLIANT] Microsoft.BingNews: Not Installed (expected: Not Installed)
+[DRIFT]     Microsoft.GamingApp: Installed (expected: Not Installed)
+
+Summary
+--------------------------------------------------
+Total Checks: 51
+Compliant:    48 (94.1%)
+Drift:        3
+```
 
 ## 📋 Configuration Files
 
