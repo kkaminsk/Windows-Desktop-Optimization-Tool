@@ -45,6 +45,11 @@
             </Directory>
         </StandardDirectory>
 
+        <!-- Start Menu Shortcut Directory -->
+        <StandardDirectory Id="ProgramMenuFolder">
+            <Directory Id="WDOTStartMenuFolder" Name="WDOT" />
+        </StandardDirectory>
+
         <!-- ================================================================== -->
         <!-- Main Script Components                                              -->
         <!-- ================================================================== -->
@@ -212,6 +217,23 @@
         </ComponentGroup>
 
         <!-- ================================================================== -->
+        <!-- Start Menu Shortcuts                                                -->
+        <!-- ================================================================== -->
+
+        <ComponentGroup Id="ShortcutComponents" Directory="WDOTStartMenuFolder">
+            <Component Id="AuditShortcut" Guid="*">
+                <Shortcut Id="WDOTAuditShortcut"
+                          Name="WDOT Configuration Audit"
+                          Description="Audit Windows optimization compliance against WDOT configuration"
+                          Target="[System64Folder]WindowsPowerShell\v1.0\powershell.exe"
+                          Arguments="-ExecutionPolicy Bypass -File &quot;[INSTALLFOLDER]Get-WDOTAudit.ps1&quot; -Interactive"
+                          WorkingDirectory="INSTALLFOLDER" />
+                <RemoveFolder Id="RemoveWDOTStartMenuFolder" On="uninstall" />
+                <RegistryValue Root="HKCU" Key="Software\WDOT" Name="AuditShortcut" Type="integer" Value="1" KeyPath="yes" />
+            </Component>
+        </ComponentGroup>
+
+        <!-- ================================================================== -->
         <!-- Feature Definition                                                  -->
         <!-- ================================================================== -->
 
@@ -224,6 +246,7 @@
             <ComponentGroupRef Id="MainComponents" />
             <ComponentGroupRef Id="FunctionComponents" />
             <ComponentGroupRef Id="ConfigComponents" />
+            <ComponentGroupRef Id="ShortcutComponents" />
         </Feature>
 
         <!-- ================================================================== -->

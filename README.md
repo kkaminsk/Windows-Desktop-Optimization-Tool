@@ -272,6 +272,7 @@ msiexec /i WDOT-1.1-W365CloudPC.msi /qn /l*v install.log
 1. Installs WDOT files to `C:\Program Files\WDOT`
 2. Automatically runs optimization with W365-CloudPC profile
 3. Applies all standard and advanced optimizations
+4. Creates Start Menu shortcut: **Start > WDOT > WDOT Configuration Audit**
 
 📖 **For detailed installer documentation, see: [Installer/README.md](Installer/README.md)**
 
@@ -289,8 +290,24 @@ A read-only script that compares current system state against WDOT configuration
 - **Compliance reporting**: Shows which optimizations are applied vs. drifted
 - **Multiple output formats**: Console (color-coded) or JSON for automation
 - **Category filtering**: Audit specific categories only
+- **Interactive mode**: Opens in new window with "Press any key to exit" prompt
+- **Start Menu shortcut**: After MSI install, access via Start > WDOT > WDOT Configuration Audit
 
 #### Usage
+
+**From Start Menu (after MSI installation):**
+1. Click **Start** menu
+2. Navigate to **WDOT** folder or search for "WDOT"
+3. Click **WDOT Configuration Audit**
+4. Approve UAC elevation prompt
+5. View audit results in new PowerShell window
+6. Press any key to close when finished
+
+**Interactive mode (opens new window):**
+```powershell
+# Opens new elevated PowerShell window with audit results
+.\Get-WDOTAudit.ps1 -ConfigProfile W365-CloudPC -Interactive
+```
 
 **From the source directory:**
 ```powershell

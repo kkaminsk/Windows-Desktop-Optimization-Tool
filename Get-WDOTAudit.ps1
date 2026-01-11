@@ -28,9 +28,17 @@
 .PARAMETER OutputPath
     File path for JSON output. Required when OutputFormat is JSON.
 
+.PARAMETER Interactive
+    Opens audit results in a new PowerShell window that stays open.
+    Use this when running from shortcuts or when you want to review results.
+
 .EXAMPLE
     .\Get-WDOTAudit.ps1 -ConfigProfile W365-CloudPC
     Audits all categories and displays results in console.
+
+.EXAMPLE
+    .\Get-WDOTAudit.ps1 -ConfigProfile W365-CloudPC -Interactive
+    Opens a new window with audit results that stays open for review.
 
 .EXAMPLE
     .\Get-WDOTAudit.ps1 -ConfigProfile W365-CloudPC -Categories Services,AppxPackages
@@ -48,8 +56,8 @@
 [CmdletBinding()]
 Param
 (
-    [Parameter(Mandatory = $true, HelpMessage = "Configuration profile folder name")]
-    [string]$ConfigProfile,
+    [Parameter(Mandatory = $false, HelpMessage = "Configuration profile folder name")]
+    [string]$ConfigProfile = "W365-CloudPC",
 
     [Parameter(Mandatory = $false)]
     [ValidateSet("All", "Services", "AppxPackages", "ScheduledTasks", "Registry")]
@@ -60,8 +68,38 @@ Param
     [string]$OutputFormat = "Console",
 
     [Parameter(Mandatory = $false)]
-    [string]$OutputPath
+    [string]$OutputPath,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$Interactive,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$InInteractiveSession
 )
+
+#region Interactive Mode Handler
+
+# If -Interactive is specified, launch a new elevated PowerShell window
+if ($Interactive -and -not $InInteractiveSession)
+{
+    $ScriptPath = $MyInvocation.MyCommand.Definition
+
+    # Build arguments for the new window
+    $Arguments = "-NoExit -ExecutionPolicy Bypass -File `"$ScriptPath`" -ConfigProfile `"$ConfigProfile`" -InInteractiveSession"
+
+    if ($Categories -and $Categories -notcontains "All")
+    {
+        $Arguments += " -Categories $($Categories -join ',')"
+    }
+
+    # Launch elevated PowerShell window
+    Start-Process -FilePath "powershell.exe" -ArgumentList $Arguments -Verb RunAs
+
+    # Exit current process
+    exit 0
+}
+
+#endregion
 
 #region Initialization
 
@@ -265,6 +303,18 @@ elseif ($OutputFormat -eq "JSON")
     $JsonOutput | ConvertTo-Json -Depth 10 | Out-File -FilePath $OutputPath -Encoding UTF8
     Write-Host "Audit results exported to: $OutputPath" -ForegroundColor Green
     Write-Host "Total Checks: $TotalChecks | Compliant: $CompliantCount ($CompliancePercent%) | Drift: $DriftCount"
+}
+
+#endregion
+
+#region Interactive Session Pause
+
+# If running in interactive session, pause before closing
+if ($InInteractiveSession)
+{
+    Write-Host ""
+    Write-Host "Press any key to exit..." -ForegroundColor Cyan
+    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
 
 #endregion
