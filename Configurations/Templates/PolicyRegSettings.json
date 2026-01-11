@@ -389,7 +389,7 @@
         "RegItemValueName": "DisableSetup",
         "RegItemValueType": "DWord",
         "RegItemValue": "1",
-        "OptimizationState": "Skip"
+        "OptimizationState": "Apply"
     },
     {
         "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\StorageHealth",
@@ -529,7 +529,7 @@
         "RegItemValueName": "DoNotShowFeedbackNotifications",
         "RegItemValueType": "DWord",
         "RegItemValue": "1",
-        "OptimizationState": "Skip"
+        "OptimizationState": "Apply"
     },
     {
         "RegItemPath": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection",
@@ -592,125 +592,6 @@
         "RegItemValueName": "DisableHomeGroup",
         "RegItemValueType": "DWord",
         "RegItemValue": "1",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer",
-        "RegItemValueName": "AllowServicePoweredQSA",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "0",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Main",
-        "RegItemValueName": "EnableAutoUpgrade",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "0",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Suggested Sites",
-        "RegItemValueName": "Apply",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "0",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Ext",
-        "RegItemValueName": "DisableAddonLoadTimePerformanceNotifications",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "1",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Recovery",
-        "RegItemValueName": "AutoRecover",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "2",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Geolocation",
-        "RegItemValueName": "PolicyDisableGeolocation",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "1",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Main",
-        "RegItemValueName": "DisableFirstRunCustomize",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "1",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Infodelivery\\Restrictions",
-        "RegItemValueName": "NoSplash",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "1",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Infodelivery\\Restrictions",
-        "RegItemValueName": "NoUpdateCheck",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "1",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\SQM",
-        "RegItemValueName": "DisableCustomerImprovementProgram",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "0",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Main",
-        "RegItemValueName": "TabProcGrowth",
-        "RegItemValueType": "String",
-        "RegItemValue": "Low",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Main",
-        "RegItemValueName": "Play_Animations",
-        "RegItemValueType": "String",
-        "RegItemValue": "no",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Main",
-        "RegItemValueName": "Play_Background_Sounds",
-        "RegItemValueType": "String",
-        "RegItemValue": "no",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Main",
-        "RegItemValueName": "Display Inline Videos",
-        "RegItemValueType": "String",
-        "RegItemValue": "no",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\FlipAhead",
-        "RegItemValueName": "Apply",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "0",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\PrefetchPrerender",
-        "RegItemValueName": "Apply",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "0",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Main\\FormatDetection",
-        "RegItemValueName": "PhoneNumberEnabled",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "0",
         "OptimizationState": "Skip"
     },
     {
@@ -1003,27 +884,6 @@
     {
         "RegItemPath": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Edge\\Recommended",
         "RegItemValueName": "StartupBoostEnabled",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "0",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\EdgeUpdate",
-        "RegItemValueName": "UpdatesSuppressedDurationMin",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "900",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\EdgeUpdate",
-        "RegItemValueName": "UpdatesSuppressedStartHour",
-        "RegItemValueType": "DWord",
-        "RegItemValue": "4",
-        "OptimizationState": "Skip"
-    },
-    {
-        "RegItemPath": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\EdgeUpdate",
-        "RegItemValueName": "UpdatesSuppressedStartMin",
         "RegItemValueType": "DWord",
         "RegItemValue": "0",
         "OptimizationState": "Skip"

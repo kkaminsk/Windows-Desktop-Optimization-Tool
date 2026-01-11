@@ -102,7 +102,7 @@
         "KeyName": "NoToastApplicationNotification",
         "PropertyType": "DWord",
         "PropertyValue": "1",
-        "OptimizationState": "Skip"
+        "OptimizationState": "Apply"
     },
     {
         "HivePath": "HKLM:\\WDOT_TEMP\\SOFTWARE\\Policies\\Microsoft\\Windows\\CurrentVersion\\PushNotifications",
@@ -128,27 +128,6 @@
     {
         "HivePath": "HKLM:\\WDOT_TEMP\\SOFTWARE\\Policies\\Microsoft\\Edge\\Recommended",
         "KeyName": "StartupBoostEnabled",
-        "PropertyType": "DWord",
-        "PropertyValue": "0",
-        "OptimizationState": "Skip"
-    },
-    {
-        "HivePath": "HKLM:\\WDOT_TEMP\\SOFTWARE\\Policies\\Microsoft\\EdgeUpdate",
-        "KeyName": "UpdatesSuppressedDurationMin",
-        "PropertyType": "DWord",
-        "PropertyValue": "900",
-        "OptimizationState": "Skip"
-    },
-    {
-        "HivePath": "HKLM:\\WDOT_TEMP\\SOFTWARE\\Policies\\Microsoft\\EdgeUpdate",
-        "KeyName": "UpdatesSuppressedStartHour",
-        "PropertyType": "DWord",
-        "PropertyValue": "4",
-        "OptimizationState": "Skip"
-    },
-    {
-        "HivePath": "HKLM:\\WDOT_TEMP\\SOFTWARE\\Policies\\Microsoft\\EdgeUpdate",
-        "KeyName": "UpdatesSuppressedStartMin",
         "PropertyType": "DWord",
         "PropertyValue": "0",
         "OptimizationState": "Skip"

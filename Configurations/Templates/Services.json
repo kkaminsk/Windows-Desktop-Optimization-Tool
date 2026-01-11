@@ -124,5 +124,15 @@
     "Name": "XboxNetApiSvc",
     "OptimizationState": "Skip",
     "Description": "Xbox Live Networking Service"
+  },
+  {
+    "Name": "LanmanServer",
+    "OptimizationState": "Skip",
+    "Description": "Server service - provides SMB file sharing. Not needed for Windows 365 Cloud PC without SMB file sharing. WARNING: Disabling breaks file/printer sharing."
+  },
+  {
+    "Name": "LanmanWorkstation",
+    "OptimizationState": "Skip",
+    "Description": "Workstation service - SMB client for accessing network shares. Not needed for Windows 365 Cloud PC without SMB file sharing. WARNING: Disabling breaks access to network shares."
   }
 ]
