@@ -1,7 +1,2 @@
 # Claude Code local settings
 .claude/
-
-# Build artifacts
-Installer/*.msi
-Installer/*.wixobj
-Installer/*.wixpdb
