@@ -300,16 +300,16 @@
 
         <!--
             This custom action runs the optimization script after files are installed.
-            - Execute="deferred" : Runs elevated (as SYSTEM)
-            - Impersonate="no"   : Runs as LocalSystem, not impersonated user
+            - Execute="deferred" : Runs in deferred execution phase
+            - Impersonate="yes"  : Runs as the installing user (not LocalSystem)
             - Return="check"     : Installation fails if script returns non-zero
         -->
         <CustomAction Id="RunOptimization"
                       Execute="deferred"
-                      Impersonate="no"
+                      Impersonate="yes"
                       Return="check"
                       Directory="INSTALLFOLDER"
-                      ExeCommand="powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -WindowStyle Hidden -File &quot;[INSTALLFOLDER]Windows_Optimization.ps1&quot; -ConfigProfile W365-CloudPC -Optimizations All -AdvancedOptimizations All -AcceptEULA" />
+                      ExeCommand="powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -Command &quot;&amp; '[INSTALLFOLDER]Windows_Optimization.ps1' -ConfigProfile W365-CloudPC -Optimizations All -AdvancedOptimizations All -AcceptEULA&quot;" />
 
         <!-- Set the custom action data (required for deferred actions to access properties) -->
         <SetProperty Id="RunOptimization"
