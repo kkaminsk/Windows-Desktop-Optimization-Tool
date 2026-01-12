@@ -291,7 +291,7 @@
         <!-- Custom action to enable AuditFeature when AUDIT property is set -->
         <CustomAction Id="EnableAuditFeature"
                       Property="ADDLOCAL"
-                      Value="[ADDLOCAL],AuditFeature"
+                      Value="Complete,AuditFeature"
                       Execute="firstSequence" />
 
         <!-- ================================================================== -->
@@ -306,10 +306,10 @@
         -->
         <CustomAction Id="RunOptimization"
                       Execute="deferred"
-                      Impersonate="yes"
-                      Return="check"
+                      Impersonate="no"
+                      Return="ignore"
                       Directory="INSTALLFOLDER"
-                      ExeCommand="powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -Command &quot;&amp; '[INSTALLFOLDER]Windows_Optimization.ps1' -ConfigProfile W365-CloudPC -Optimizations All -AdvancedOptimizations All -AcceptEULA&quot;" />
+                      ExeCommand="powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -Command &quot;&amp; '[INSTALLFOLDER]Windows_Optimization.ps1' -ConfigProfile W365-CloudPC -Optimizations All -AdvancedOptimizations Edge,RemoveLegacyIE -AcceptEULA&quot;" />
 
         <!-- Set the custom action data (required for deferred actions to access properties) -->
         <SetProperty Id="RunOptimization"

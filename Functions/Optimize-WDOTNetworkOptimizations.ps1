@@ -71,8 +71,8 @@ function Optimize-WDOTNetworkOptimizations
         }
         Else
         {
-            Write-EventLog -EventId 70 -Message "File not found - $NetworkOptimizationsFilePath" -LogName 'WDOT' -Source 'NetworkOptimizations' -EntryType Warning
-            Write-Warning "File not found - $NetworkOptimizationsFilePath"
+            Write-EventLog -EventId 70 -Message "File not found - $NetworkOptimizationsFilePath (skipping LanManWorkstation configuration)" -LogName 'WDOT' -Source 'NetworkOptimizations' -EntryType Information
+            Write-Verbose "File not found - $NetworkOptimizationsFilePath (skipping LanManWorkstation configuration)"
         }
 
         # NIC Advanced Properties performance settings for network biased environments

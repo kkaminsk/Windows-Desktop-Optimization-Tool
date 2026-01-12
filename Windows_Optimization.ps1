@@ -364,3 +364,8 @@ PROCESS {
     }
     ########################  END OF SCRIPT  ########################
 } # End process
+
+END {
+    # Ensure successful exit code for MSI custom action
+    exit 0
+}
