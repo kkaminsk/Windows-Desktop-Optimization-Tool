@@ -37,7 +37,7 @@
   },
   {
     "AppxPackage": "Microsoft.DesktopAppInstaller",
-    "OptimizationState": "Apply",
+    "OptimizationState": "Skip",
     "URL": "https://apps.microsoft.com/detail/9NBLGGH4NNS1",
     "Description": "Microsoft App Installer for Windows 10 makes sideloading Windows apps easy"
   },

@@ -497,6 +497,7 @@ For productivity on Cloud PC environments, consider keeping:
 | Package | Reason |
 |---------|--------|
 | `Microsoft.Copilot` | Microsoft AI assistant |
+| `Microsoft.DesktopAppInstaller` | Required for winget package manager and app sideloading |
 | `Microsoft.MicrosoftStickyNotes` | Productivity app |
 | `Microsoft.Todos` | Task management app |
 | `Microsoft.WindowsNotepad` | Essential text editor |
