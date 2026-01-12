@@ -469,7 +469,7 @@ We welcome contributions to improve WDOT:
 - Include proper error handling
 - Add verbose logging for troubleshooting
 - Test on multiple Windows versions
-- Document new optimization categories
+- Document new optimisation categories
 
 ## 📄 License
 
@@ -519,7 +519,7 @@ Get-ItemProperty "HKLM:\SOFTWARE\WDOT"
 
 ## Changelog
 
-### v1.1 - Windows 365 Cloud PC Optimizations
+### v1.1 - Windows 365 Cloud PC Optimisations
 
 Optimized for Windows 365 Cloud PC with Intune Endpoint Analytics and Azure Monitor compatibility.
 
@@ -532,7 +532,7 @@ Optimized for Windows 365 Cloud PC with Intune Endpoint Analytics and Azure Moni
 **New MSI Installer:**
 - WiX-based installer for enterprise deployment (Intune, SCCM, Group Policy)
 - Silent installation: `msiexec /i WDOT-1.1-W365CloudPC.msi /qn`
-- Automatically runs optimization during installation
+- Automatically runs optimisation during installation
 - Installs to `C:\Program Files\WDOT`
 
 **Template Changes:**
@@ -549,7 +549,13 @@ See `Configurations/README.md` for detailed profile documentation.
 
 ### v1.0 - Initial Release
 
-Initial release of the Windows Desktop Optimization Tool.
+- Initial release of the Windows Desktop Optimization Tool.
+
+### v1.1 - KK Fork
+
+- Changes to customize more to be in line with preferences for Windows 365.
+- Added WIX MSI installer, works as administrator but fails in Intune.
+- Added an audit script. When installing MSI use AUDIT=TRUE for script and shortcut.
 
 ---
 
